@@ -1,3 +1,14 @@
+
+# each POST endpoint can define 
+# its own Payload (and Response) model so you validate the exact shape you expect for that function. 
+# For example, if you add @app.post("/embed") you’d create class EmbeddingPayload(BaseModel): 
+# text: str (maybe with extra fields) and use it as the parameter.
+
+
+#FastAPI matches the model to the endpoint, so /run uses Payload, /embed uses EmbeddingPayload, etc. 
+# You can even reuse models when shapes overlap, but keeping one per endpoint keeps intent clear.
+
+import uvicorn
 from typing import Any
 
 from fastapi import FastAPI
@@ -41,3 +52,5 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("fast-api:app", host="0.0.0.0", port=8000, reload=True)
+
+
