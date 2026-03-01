@@ -53,10 +53,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file-path", required=True)
     parser.add_argument("--chunk-size", type=int, default=1000)
+    parser.add_argument("--out-file", default="finalDict.json")
     args = parser.parse_args()
 
     final_dict = pdfToChunks(args.file_path, chunk_size=args.chunk_size)
-    print(json.dumps(final_dict, ensure_ascii=False))
+
+    with open(args.out_file, "w", encoding="utf-8") as f:
+        json.dump(final_dict, f, ensure_ascii=False, indent=2)
+
+    print(f"Wrote: {args.out_file}")
+
 
 
 if __name__ == "__main__":
